@@ -6,8 +6,7 @@ ENV TOKEN=
 
 ARG VERSION 
 
-RUN wget https://github.com/inlets/inlets/releases/download/${VERSION}/inlets -P /bin/
-RUN chmod a+x /bin/inlet
+RUN wget https://github.com/inlets/inlets/releases/download/${VERSION}/inlets -P /bin/ &&  chmod a+x /bin/inlet
 
 COPY run.sh /bin
 
