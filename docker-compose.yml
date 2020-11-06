@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  inlets:
+    image: edwinclement08/inlets
+    environment:
+      - TOKEN=this_should_be_changed_to_a_random_string
+    ports: 
+      - 8081:8080
