@@ -1,0 +1,30 @@
+name: CI to Docker hub 
+on:
+  push:
+    tags:
+     - "*.*.*"
+  steps:
+      -
+        name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: edwinclement08/inlets:latest,edwinclement08/inlets:${{ steps.get_version.outputs.VERSION }}
+          build-args: |
+            VERSION=${{ steps.get_version.outputs.VERSION }}
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
