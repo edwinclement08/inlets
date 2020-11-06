@@ -29,8 +29,6 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: ./
-          file: ./Dockerfile
           push: true
           tags: edwinclement08/inlets:latest,edwinclement08/inlets:${{ steps.get_version.outputs.VERSION }}
           build-args: |
