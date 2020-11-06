@@ -2,7 +2,16 @@ name: CI to Docker hub
 on:
   push:
     tags:
-     - "*.*.*"
+      - "*.*.*"
+
+jobs:
+  # Set the job key. The key is displayed as the job name
+  # when a job name is not provided
+  push-to-dockerhub:
+    # Name the Job
+    name: Build and push docker image to hub
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
   steps:
       -
         name: Get the version
