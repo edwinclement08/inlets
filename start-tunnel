@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [[ $# -ne 2  ]] ; then
+  echo -e 'Invalid call, The proper call format is:'
+  echo -e './start-tunnel <domain> <port>'
+  echo -e 'where'
+  echo -e '\t<domain> is the website domain you registered'
+  echo -e '\t<port> is the local port you want to proxy'
+  exit
+fi
+
+if [ -z "$TOKEN" ] 
+then
+    echo 'Please set the Environment Variable $TOKEN for the inlet server you connect to.'
+    echo -e '\te.g. TOKEN=test123 ./start-tunnel 21.4.1.54 8080'
+    exit
+fi
+
+inlets client \
+    --remote="wss://$1" \
+    --upstream="$1=http://0.0.0.0:$2" \
+    --token=$TOKEN

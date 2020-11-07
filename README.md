@@ -28,6 +28,33 @@ inlets:
 
 NOTE: Make sure to change the token so the others .
 
+# Adding to a existing Nginx server to have multiple subdomains 
+
+Add the following to your config
+
+```
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    ssl_certificate /etc/certs/fullchain.pem;
+    ssl_certificate_key /etc/certs/privkey.pem;
+
+    server_name example.com;
+
+    # Inlets proxy
+    location / {
+        proxy_pass http://inlets:8080;
+        proxy_http_version 1.1;
+        proxy_read_timeout 120s;
+        proxy_connect_timeout 120s;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+```
+
 # Troubleshooting
 
 If you don't pass the TOKEN environment variables, the server program will refuse to start.
