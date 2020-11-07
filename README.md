@@ -1,6 +1,8 @@
 # Inlets
 Simple Dockerization of https://github.com/inlets/inlets
 
+Dockerhub link: https://hub.docker.com/repository/docker/edwinclement08/inlets/general
+
 # Usage
 
 ## As a standalone container
